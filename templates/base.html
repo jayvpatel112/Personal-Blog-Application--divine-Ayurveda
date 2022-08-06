@@ -1,0 +1,75 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <link rel="stylesheet" href={% static 'blogposts/css/bootstrap.css' %}>
+    <script src={% static 'blogposts/js/bootstrap.bundle.js' %} async></script>
+    <title>{%block page_title%} {%endblock%}</title>
+    {%block style_css%}{% endblock%}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href={% url 'latest-posts' %}>Divine Aayurveda</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href={% url 'latest-posts' %}>Latest Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href={% url 'all-posts' %}>All Blogs</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <ul class=" nav navbar-nav navbar-center">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link"><button type="button" class="btn btn-outline-primary">Logout</button></a>
+                            <form action="{%url 'logout' %}" id = 'logout' method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" >
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href='{% url 'login' %}'><button type="button" class="btn btn-outline-primary">Login</button></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href='{% url 'sign-up' %}'><button type="button" class="btn btn-outline-primary">Sign Up</button></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {%block page_body%}
+    {%endblock%}
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: gunicorn divine_Ayureveda.wsgi --log-file -
